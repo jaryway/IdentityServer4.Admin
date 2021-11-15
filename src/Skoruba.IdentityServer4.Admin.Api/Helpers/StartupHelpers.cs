@@ -24,6 +24,7 @@ using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.MySql;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.PostgreSQL;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Sqlite;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.SqlServer;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Helpers;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
@@ -158,6 +159,9 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
                     break;
                 case DatabaseProviderType.MySql:
                     services.RegisterMySqlDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext, TAuditLog>(connectionStrings, databaseMigrations);
+                    break;
+                case DatabaseProviderType.Sqlite:
+                    services.RegisterSqliteDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLoggingDbContext, TDataProtectionDbContext, TAuditLog>(connectionStrings, databaseMigrations);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(databaseProvider.ProviderType), $@"The value needs to be one of {string.Join(", ", Enum.GetNames(typeof(DatabaseProviderType)))}.");
@@ -327,6 +331,16 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
                                 healthQuery: $"SELECT * FROM \"{dataProtectionTableName}\"  LIMIT 1");
                         break;
                     case DatabaseProviderType.MySql:
+                        healthChecksBuilder
+                            .AddMySql(configurationDbConnectionString, name: "ConfigurationDb")
+                            .AddMySql(persistedGrantsDbConnectionString, name: "PersistentGrantsDb")
+                            .AddMySql(identityDbConnectionString, name: "IdentityDb")
+                            .AddMySql(logDbConnectionString, name: "LogDb")
+                            .AddMySql(auditLogDbConnectionString, name: "AuditLogDb")
+                            .AddMySql(dataProtectionDbConnectionString, name: "DataProtectionDb");
+                        break;
+
+                    case DatabaseProviderType.Sqlite:
                         healthChecksBuilder
                             .AddMySql(configurationDbConnectionString, name: "ConfigurationDb")
                             .AddMySql(persistedGrantsDbConnectionString, name: "PersistentGrantsDb")

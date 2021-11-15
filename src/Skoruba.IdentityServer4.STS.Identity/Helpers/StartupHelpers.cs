@@ -30,6 +30,7 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.PostgreSQL;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.SqlServer;
 using Skoruba.IdentityServer4.Shared.Configuration.Authentication;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Sqlite;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
@@ -184,6 +185,9 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                 case DatabaseProviderType.MySql:
                     services.RegisterMySqlDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TDataProtectionDbContext>(identityConnectionString, configurationConnectionString, persistedGrantsConnectionString, dataProtectionConnectionString);
                     break;
+                case DatabaseProviderType.Sqlite:
+                    services.RegisterSqliteDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext, TDataProtectionDbContext>(identityConnectionString, configurationConnectionString, persistedGrantsConnectionString, dataProtectionConnectionString);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(databaseProvider.ProviderType), $@"The value needs to be one of {string.Join(", ", Enum.GetNames(typeof(DatabaseProviderType)))}.");
             }
@@ -333,7 +337,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
-                    
+
                     if (!string.IsNullOrEmpty(advancedConfiguration.IssuerUri))
                     {
                         options.IssuerUri = advancedConfiguration.IssuerUri;
@@ -463,6 +467,13 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                                 healthQuery: $"SELECT * FROM \"{dataProtectionTableName}\"  LIMIT 1");
                         break;
                     case DatabaseProviderType.MySql:
+                        healthChecksBuilder
+                            .AddMySql(configurationDbConnectionString, name: "ConfigurationDb")
+                            .AddMySql(persistedGrantsDbConnectionString, name: "PersistentGrantsDb")
+                            .AddMySql(identityDbConnectionString, name: "IdentityDb")
+                            .AddMySql(dataProtectionDbConnectionString, name: "DataProtectionDb");
+                        break;
+                    case DatabaseProviderType.Sqlite:
                         healthChecksBuilder
                             .AddMySql(configurationDbConnectionString, name: "ConfigurationDb")
                             .AddMySql(persistedGrantsDbConnectionString, name: "PersistentGrantsDb")
