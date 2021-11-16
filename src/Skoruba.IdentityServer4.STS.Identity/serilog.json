@@ -17,17 +17,17 @@
                     "rollingInterval": "Day"
                 }
             },
-            {
-                "Name": "MSSqlServer",
-                "Args": {
-                    "connectionString": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
-                    "tableName": "Log",
-                    "columnOptionsSection": {
-                        "addStandardColumns": [ "LogEvent" ],
-                        "removeStandardColumns": [ "Properties" ]
-                    }
-                }
+          {
+            "Name": "Sqlite",
+            "Args": {
+              "connectionString": "Data Source=../database/IndentityServer4Admin.db",
+              "tableName": "Log",
+              "columnOptionsSection": {
+                "addStandardColumns": [ "LogEvent" ],
+                "removeStandardColumns": [ "Properties" ]
+              }
             }
+          }
         ]
     }
 }
