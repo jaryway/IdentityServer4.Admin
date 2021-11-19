@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -86,6 +87,8 @@ namespace Skoruba.IdentityServer4.Admin.Api
             {
                 options.SwaggerDoc(adminApiConfiguration.ApiVersion, new OpenApiInfo { Title = adminApiConfiguration.ApiName, Version = adminApiConfiguration.ApiVersion });
 
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Skoruba.IdentityServer4.Admin.Api.xml");
+                options.IncludeXmlComments(filePath);
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.OAuth2,
@@ -126,6 +129,7 @@ namespace Skoruba.IdentityServer4.Admin.Api
                 c.OAuthClientId(adminApiConfiguration.OidcSwaggerUIClientId);
                 c.OAuthAppName(adminApiConfiguration.ApiName);
                 c.OAuthUsePkce();
+               
             });
 
             app.UseRouting();

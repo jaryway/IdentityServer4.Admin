@@ -27,6 +27,13 @@ namespace Skoruba.IdentityServer4.Admin.Api.Controllers
             _errorResources = errorResources;
         }
 
+        /// <summary>
+        /// 获取资源
+        /// </summary>
+        /// <param name="searchText">搜索文字</param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<ApiResourcesApiDto>> Get(string searchText, int page = 1, int pageSize = 10)
         {

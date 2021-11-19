@@ -14,6 +14,9 @@ namespace Skoruba.IdentityServer4.Admin.Api.Dtos.ApiResources
 
         public int Id { get; set; }
 
+        /// <summary>
+        /// 名称
+        /// </summary>
         [Required]
         public string Name { get; set; }
 
