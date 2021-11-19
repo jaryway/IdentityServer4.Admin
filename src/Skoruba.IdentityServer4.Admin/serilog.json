@@ -18,9 +18,9 @@
                 }
             },
             {
-                "Name": "MSSqlServer",
+                "Name": "Sqlite",
                 "Args": {
-                    "connectionString": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+                    "connectionString": "Data Source=../database/IndentityServer4Admin.db;",
                     "tableName": "Log",
                     "columnOptionsSection": {
                         "addStandardColumns": [ "LogEvent" ],
