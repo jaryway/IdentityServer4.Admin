@@ -9,6 +9,12 @@
         <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <DockerfileContext>..\..</DockerfileContext>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>1591</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DocumentationFile></DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
