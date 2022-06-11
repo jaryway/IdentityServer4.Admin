@@ -43,6 +43,11 @@ api 定义到哪里验证用户，即它要关联 IdentityServer
 client 定义用户可以访问哪些资源（scope）
 
 
+# 创建和还原数据库
+
+- 到Skoruba.IdentityServer4.Admin目录下执行 dotnet ef database update -c AdminIdentityDbContext AdminLogDbContext IdentityServerConfigurationDbContext IdentityServerPersistedGrantDbContext IdentityServerDataProtectionDbContext AdminAuditLogDbContext
+
+
 
 
 
