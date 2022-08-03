@@ -343,6 +343,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                         options.IssuerUri = advancedConfiguration.IssuerUri;
                     }
                 })
+                .AddAuthorizeInteractionResponseGenerator<CutstomAuthorizeInteractionResponseGenerator>()
                 .AddConfigurationStore<TConfigurationDbContext>()
                 .AddOperationalStore<TPersistedGrantDbContext>()
                 .AddAspNetIdentity<TUserIdentity>();
