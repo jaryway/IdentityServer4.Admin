@@ -27,6 +27,7 @@ namespace Skoruba.IdentityServer4.STS.Identity
 
             var response = await base.ProcessInteractionAsync(request, consent);
             // 用户登录后去选择要进入的租户
+            // TODO:如果是已经选择了企业，第二次进入是否还需要再展示企业选择界面呢？
             if (!response.IsLogin && !response.IsConsent)
             {
                 return new InteractionResponse { RedirectUrl = "/tenants/choose" };
