@@ -133,6 +133,7 @@ namespace Skoruba.IdentityServer4.Admin.Api.Helpers
         /// <typeparam name="TIdentityDbContext"></typeparam>
         /// <typeparam name="TAuditLoggingDbContext"></typeparam>
         /// <typeparam name="TDataProtectionDbContext"></typeparam>
+        /// <typeparam name="TAuditLog"></typeparam>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         public static void AddDbContexts<TIdentityDbContext, TConfigurationDbContext, TPersistedGrantDbContext,

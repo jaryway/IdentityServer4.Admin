@@ -31,6 +31,9 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.SqlServer;
 using Skoruba.IdentityServer4.Shared.Configuration.Authentication;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Sqlite;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Repositories;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
@@ -323,8 +326,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         public static IIdentityServerBuilder AddIdentityServer<TConfigurationDbContext, TPersistedGrantDbContext, TUserIdentity>(
-            this IServiceCollection services,
-            IConfiguration configuration)
+            this IServiceCollection services, IConfiguration configuration)
             where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
             where TConfigurationDbContext : DbContext, IAdminConfigurationDbContext
             where TUserIdentity : class
@@ -343,6 +345,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                         options.IssuerUri = advancedConfiguration.IssuerUri;
                     }
                 })
+                // 直接从 Identity Server 登录不会触发
                 .AddAuthorizeInteractionResponseGenerator<CutstomAuthorizeInteractionResponseGenerator>()
                 .AddConfigurationStore<TConfigurationDbContext>()
                 .AddOperationalStore<TPersistedGrantDbContext>()
@@ -413,6 +416,14 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                 options.AddPolicy(AuthorizationConsts.AdministrationPolicy,
                     policy => policy.RequireRole(rootConfiguration.AdminConfiguration.AdministrationRole));
             });
+        }
+
+        public static IServiceCollection AddOrganizationService<TOrganizationDbContext>(this IServiceCollection services)
+            where TOrganizationDbContext : DbContext, IOrganizationDbContext
+        {
+            services.AddTransient<IOrganizationRepository<UserIdentity>, OrganizationRepository<TOrganizationDbContext, UserIdentity>>();
+
+            return services;
         }
 
         public static void AddIdSHealthChecks<TConfigurationDbContext, TPersistedGrantDbContext, TIdentityDbContext, TDataProtectionDbContext>(this IServiceCollection services, IConfiguration configuration)

@@ -52,6 +52,6 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
         /// </summary>
         public ICollection<Party> Parties { get; set; }
 
-        public ICollection<CorpUserIdentity> Users { get; set; }
+        public ICollection<UserIdentity> Users { get; set; }
     }
 }

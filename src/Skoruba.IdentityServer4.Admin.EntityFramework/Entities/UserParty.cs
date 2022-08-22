@@ -10,7 +10,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
     /// <summary>
     /// 用户与部门的映射表
     /// </summary>
-    public class UserParty<TUser> where TUser : IdentityUser
+    public class UserParty
     {
         public string UserId { get; set; }
 
@@ -26,7 +26,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
         /// </summary>
         public byte IsMainParty { get; set; }
 
-        public TUser User { get; set; }
+        public UserIdentity User { get; set; }
 
         public Party Party { get; set; }
     }

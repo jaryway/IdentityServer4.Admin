@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
 {
-    public class CorpUserIdentity : IdentityUser
+    /// <summary>
+    /// 
+    /// </summary>
+    public class UserIdentity : IdentityUser
     {
         /// <summary>
         /// 

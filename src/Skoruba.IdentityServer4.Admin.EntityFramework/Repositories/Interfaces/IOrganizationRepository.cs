@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces
 {
-    public interface IOrganizationRepository<TUser> where TUser : CorpUserIdentity
+    public interface IOrganizationRepository<TUser> where TUser : UserIdentity
     {
         Task<PagedList<TUser>> GetUsersAsync(string search, long corpId, int page = 1, int pageSize = 10);
+
+        Task<IList<Corporation>> GetUserCorporations(string userName);
 
         /// <summary>
         /// 

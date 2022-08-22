@@ -47,6 +47,7 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.PostgreSQL;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.SqlServer;
 using Skoruba.IdentityServer4.Shared.Configuration.Authentication;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Sqlite;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 
 namespace Skoruba.IdentityServer4.Admin.UI.Helpers
 {
@@ -75,6 +76,15 @@ namespace Skoruba.IdentityServer4.Admin.UI.Helpers
             }
         }
 
+        public static IServiceCollection AddOrganizationService<TOrganizationDbContext>(this IServiceCollection services)
+            where TOrganizationDbContext : DbContext, IOrganizationDbContext
+
+        {
+            services.AddTransient<IOrganizationRepository<UserIdentity>, OrganizationRepository<TOrganizationDbContext, UserIdentity>>();
+
+            return services;
+        }
+
         public static IServiceCollection AddAuditEventLogging<TAuditLoggingDbContext, TAuditLog>(this IServiceCollection services, AuditLoggingConfiguration auditLoggingConfiguration)
             where TAuditLog : AuditLog, new()
             where TAuditLoggingDbContext : IAuditLoggingDbContext<TAuditLog>
@@ -90,6 +100,9 @@ namespace Skoruba.IdentityServer4.Admin.UI.Helpers
                         actionOptions.IncludeFormVariables = auditLoggingConfiguration.IncludeFormVariables;
                     })
                 .AddAuditSinks<DatabaseAuditEventLoggerSink<TAuditLog>>();
+
+
+
 
             // repository for library
             services.AddTransient<IAuditLoggingRepository<TAuditLog>, AuditLoggingRepository<TAuditLoggingDbContext, TAuditLog>>();

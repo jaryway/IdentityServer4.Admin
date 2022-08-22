@@ -22,7 +22,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
         /// </summary>
         public string Status { get; set; }
 
-        public CorpUserIdentity User { get; set; }
+        public UserIdentity User { get; set; }
         public Corporation Corporation { get; set; }
     }
 }

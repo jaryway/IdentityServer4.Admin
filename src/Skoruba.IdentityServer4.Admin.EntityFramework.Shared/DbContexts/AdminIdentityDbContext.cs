@@ -4,10 +4,11 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Constants;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
+using UserIdentity = Skoruba.IdentityServer4.Admin.EntityFramework.Entities.UserIdentity;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts
 {
-    public class AdminIdentityDbContext : IdentityDbContext<UserIdentity, UserIdentityRole, string, UserIdentityUserClaim, UserIdentityUserRole, UserIdentityUserLogin, UserIdentityRoleClaim, UserIdentityUserToken>,IOrganizaitonDbContext<UserIdentity>
+    public class AdminIdentityDbContext : IdentityDbContext<UserIdentity, UserIdentityRole, string, UserIdentityUserClaim, UserIdentityUserRole, UserIdentityUserLogin, UserIdentityRoleClaim, UserIdentityUserToken>, IOrganizationDbContext
     {
         public AdminIdentityDbContext(DbContextOptions<AdminIdentityDbContext> options) : base(options)
         {
@@ -16,8 +17,8 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts
 
         public DbSet<Corporation> Corporations { get; set; }
         public DbSet<Party> Parties { get; set; }
-        public DbSet<UserParty<UserIdentity>> UserParties { get; set; }
-        public DbSet<UserCorporation<UserIdentity>> UserCorporations { get; set; }
+        public DbSet<UserParty> UserParties { get; set; }
+        public DbSet<UserCorporation> UserCorporations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -39,14 +40,14 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts
 
             builder.Entity<Corporation>().ToTable(TableConsts.Corporations);
             builder.Entity<Party>().ToTable(TableConsts.Parties);
-            builder.Entity<UserParty<UserIdentity>>(b =>
+            builder.Entity<UserParty>(b =>
             {
                 b.HasKey(r => new { r.UserId, r.PartyId });
                 b.HasOne(m => m.Party).WithMany().HasForeignKey("PartyId");
                 b.HasOne(m => m.User).WithMany().HasForeignKey("UserId");
                 b.ToTable(TableConsts.UserParties);
             });
-            builder.Entity<UserCorporation<UserIdentity>>(b =>
+            builder.Entity<UserCorporation>(b =>
             {
                 b.HasKey(r => new { r.UserId, r.CorpId });
                 b.HasOne(m => m.Corporation).WithMany().HasForeignKey("CorpId");
