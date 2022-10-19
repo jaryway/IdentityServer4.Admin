@@ -1,5 +1,5 @@
 ﻿
-@model Skoruba.IdentityServer4.STS.Identity.ViewModels.Account.LoginViewModel
+@model Skoruba.IdentityServer4.STS.Identity.ViewModels.Tenant.TenantChooseViewModel
 
 <div class="login-page">
   <div class="page-header">
@@ -18,8 +18,10 @@
             <input type="hidden" asp-for="ReturnUrl" />
 
             <fieldset>
-              <button class="btn btn-primary" name="button" value="csscii">中船工业互联网有限公司</button>
-              <button type="button" class="list-group-item" name="button" value="cssc">中船黄埔文冲船舶有限公司</button>=
+              @foreach (var item in Model.Corperations)
+              {
+                <button class="btn btn-primary" name="button" value="@item">@item</button>
+              }
             </fieldset>
           </form>
         </div>
