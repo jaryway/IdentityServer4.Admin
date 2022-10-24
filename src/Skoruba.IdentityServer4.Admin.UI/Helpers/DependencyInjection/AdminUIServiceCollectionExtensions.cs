@@ -12,6 +12,7 @@ using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
 using Skoruba.IdentityServer4.Shared.Configuration.Helpers;
 using static Skoruba.IdentityServer4.Admin.UI.Helpers.StartupHelpers;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

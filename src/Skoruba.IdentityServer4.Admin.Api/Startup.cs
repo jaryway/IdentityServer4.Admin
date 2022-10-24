@@ -22,7 +22,7 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
 using Skoruba.IdentityServer4.Shared.Configuration.Helpers;
 using Skoruba.IdentityServer4.Shared.Dtos;
 using Skoruba.IdentityServer4.Shared.Dtos.Identity;
-using UserIdentity = Skoruba.IdentityServer4.Admin.EntityFramework.Entities.UserIdentity;
+
 
 namespace Skoruba.IdentityServer4.Admin.Api
 {

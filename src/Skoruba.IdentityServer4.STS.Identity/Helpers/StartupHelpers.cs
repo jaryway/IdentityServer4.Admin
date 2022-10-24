@@ -34,6 +34,11 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Sqlite;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Repositories;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories.Interfaces;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
+using IdentityServer4.Configuration;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
@@ -331,22 +336,11 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
             where TConfigurationDbContext : DbContext, IAdminConfigurationDbContext
             where TUserIdentity : class
         {
-            var advancedConfiguration = configuration.GetSection(nameof(AdvancedConfiguration)).Get<AdvancedConfiguration>();
+            //var advancedConfiguration = configuration.GetSection(nameof(AdvancedConfiguration)).Get<AdvancedConfiguration>();
 
-            var builder = services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
+            var configurationSection = configuration.GetSection(nameof(IdentityServerOptions));
 
-                    if (!string.IsNullOrEmpty(advancedConfiguration.IssuerUri))
-                    {
-                        options.IssuerUri = advancedConfiguration.IssuerUri;
-                    }
-                })
-                // 直接从 Identity Server 登录不会触发
-                .AddAuthorizeInteractionResponseGenerator<CutstomAuthorizeInteractionResponseGenerator>()
+            var builder = services.AddIdentityServer(options => configurationSection.Bind(options))
                 .AddConfigurationStore<TConfigurationDbContext>()
                 .AddOperationalStore<TPersistedGrantDbContext>()
                 .AddAspNetIdentity<TUserIdentity>();

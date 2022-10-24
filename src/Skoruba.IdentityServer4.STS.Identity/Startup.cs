@@ -13,7 +13,6 @@ using Skoruba.IdentityServer4.STS.Identity.Configuration.Interfaces;
 using Skoruba.IdentityServer4.STS.Identity.Helpers;
 using System;
 using Skoruba.IdentityServer4.Shared.Configuration.Helpers;
-using UserIdentity = Skoruba.IdentityServer4.Admin.EntityFramework.Entities.UserIdentity;
 
 namespace Skoruba.IdentityServer4.STS.Identity
 {

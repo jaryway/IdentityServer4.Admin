@@ -48,6 +48,10 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.SqlServer;
 using Skoruba.IdentityServer4.Shared.Configuration.Authentication;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Sqlite;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories.Interfaces;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories;
 
 namespace Skoruba.IdentityServer4.Admin.UI.Helpers
 {

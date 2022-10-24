@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories.Interfaces;
 using Skoruba.IdentityServer4.STS.Identity.ViewModels.Tenant;
 using System;
 using System.Collections.Generic;
