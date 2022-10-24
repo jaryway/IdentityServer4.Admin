@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Skoruba.AuditLogging.EntityFramework.Helpers.Common;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Skoruba.AuditLogging.EntityFramework.Helpers.Common;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
 
-namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces
+namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories.Interfaces
 {
     public interface IOrganizationRepository<TUser> where TUser : UserIdentity
     {
@@ -34,5 +33,8 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces
         /// <returns></returns>
         Task<int> RemoveCorporationAsync(Corporation corporation);
 
+        Task<int> SaveAllChangesAsync();
+
+        bool AutoSaveChanges { get; set; }
     }
 }

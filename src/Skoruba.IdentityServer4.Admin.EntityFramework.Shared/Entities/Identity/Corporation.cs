@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
+namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity
 {
     public class Corporation
     {

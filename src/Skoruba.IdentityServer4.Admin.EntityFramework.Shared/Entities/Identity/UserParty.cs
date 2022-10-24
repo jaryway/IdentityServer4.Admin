@@ -1,15 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
+﻿using System;
+namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity
 {
-    /// <summary>
-    /// 用户与部门的映射表
-    /// </summary>
     public class UserParty
     {
         public string UserId { get; set; }
@@ -31,3 +22,4 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
         public Party Party { get; set; }
     }
 }
+

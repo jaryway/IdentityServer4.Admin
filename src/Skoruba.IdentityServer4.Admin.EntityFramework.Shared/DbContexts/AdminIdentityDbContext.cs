@@ -4,7 +4,6 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Constants;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
-using UserIdentity = Skoruba.IdentityServer4.Admin.EntityFramework.Entities.UserIdentity;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts
 {

@@ -1,18 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
+﻿using System;
+namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity
 {
-
-    /// <summary>
-    /// 人员与企业映射表
-    /// </summary>
     public class UserCorporation
     {
+
         public string UserId { get; set; }
 
         public long CorpId { get; set; }
@@ -25,4 +16,6 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Entities
         public UserIdentity User { get; set; }
         public Corporation Corporation { get; set; }
     }
+
 }
+
