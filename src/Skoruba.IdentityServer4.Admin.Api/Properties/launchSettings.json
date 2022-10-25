@@ -20,11 +20,10 @@
     "Skoruba.IdentityServer4.Admin.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:57980",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:44302"
+      }
     }
   }
 }

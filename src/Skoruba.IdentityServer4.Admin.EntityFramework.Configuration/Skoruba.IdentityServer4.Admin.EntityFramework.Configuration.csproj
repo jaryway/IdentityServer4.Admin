@@ -18,6 +18,7 @@
         <PackageReference Include="Skoruba.AuditLogging.EntityFramework" Version="1.0.0" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,4 +26,7 @@
         <ProjectReference Include="..\Skoruba.IdentityServer4.Admin.EntityFramework\Skoruba.IdentityServer4.Admin.EntityFramework.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    </ItemGroup>
 </Project>
