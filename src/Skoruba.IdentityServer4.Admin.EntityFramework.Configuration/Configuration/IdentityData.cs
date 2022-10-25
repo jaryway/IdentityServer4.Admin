@@ -3,9 +3,10 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration.
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration
 {
-	public class IdentityData
+    public class IdentityData
     {
-       public List<Role> Roles { get; set; }
-       public List<User> Users { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<User> Users { get; set; }
+        public List<Corporation> Corporations { get; set; }
     }
 }

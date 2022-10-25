@@ -3,6 +3,9 @@
     "Roles": [
       {
         "Name": "SkorubaIdentityAdminAdministrator"
+      },
+      {
+        "Name": "Administrator"
       }
     ],
     "Users": [
@@ -19,7 +22,126 @@
             "Value": "admin"
           }
         ]
+      },
+      {
+        "Username": "zhangsan",
+        "Password": "Pa$$word123",
+        "Email": "zhangsan@qq.com",
+        "Roles": [
+          "Administrator"
+        ],
+        "Claims": [
+          {
+            "Type": "name",
+            "Value": "zhangsan"
+          }
+        ]
+      },
+      {
+        "Username": "lisi",
+        "Password": "Pa$$word123",
+        "Email": "lisi@qq.com",
+        "Roles": [
+          "Administrator"
+        ],
+        "Claims": [
+          {
+            "Type": "name",
+            "Value": "lisi"
+          }
+        ]
+      },
+      {
+        "Username": "wangwu",
+        "Password": "Pa$$word123",
+        "Email": "wangwu@qq.com",
+        "Roles": [
+          "Administrator"
+        ],
+        "Claims": [
+          {
+            "Type": "name",
+            "Value": "wangwu"
+          }
+        ]
+      },
+      {
+        "Username": "zhaoliu",
+        "Password": "Pa$$word123",
+        "Email": "zhaoliu@qq.com",
+        "Roles": [
+          "Administrator"
+        ],
+        "Claims": [
+          {
+            "Type": "name",
+            "Value": "zhaoliu"
+          }
+        ]
+      },
+      {
+        "Username": "hanmeimei",
+        "Password": "Pa$$word123",
+        "Email": "hanmeimei@qq.com",
+        "Roles": [
+          "Administrator"
+        ],
+        "Claims": [
+          {
+            "Type": "name",
+            "Value": "hanmeimei"
+          }
+        ]
+      },
+      {
+        "Username": "zhaodongsheng",
+        "Password": "Pa$$word123",
+        "Email": "zhaodongsheng@qq.com",
+        "Roles": [
+          "Administrator"
+        ],
+        "Claims": [
+          {
+            "Type": "name",
+            "Value": "zhaodongsheng"
+          }
+        ]
+      }
+    ],
+    "Corporations": [
+      {
+        "Name": "北京阿尔法",
+        "FullName": "北京阿尔法科技有限公司",
+        "Parties": [
+          {
+            "Name": "开发部"
+          },
+          {
+            "Name": "人力资源部"
+          },
+          {
+            "Name": "市场营销部"
+          }
+        ],
+        "Users": [ "zhaoliu", "hanmeimei" ]
+      },
+      {
+        "Name": "南京隆玫科",
+        "FullName": "南京隆玫科技有限公司",
+        "Parties": [
+          {
+            "Name": "技术部"
+          },
+          {
+            "Name": "人力资源部"
+          },
+          {
+            "Name": "市场部"
+          }
+        ],
+        "Users": [ "zhangsan", "lisi", "wangwu" ]
       }
     ]
+
   }
 }

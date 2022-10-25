@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories.Interfaces;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Enums;
-using IdentityServer4.EntityFramework.Entities;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Repositories
 {

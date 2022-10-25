@@ -20,7 +20,7 @@
           {
             "Name": "Sqlite",
             "Args": {
-              "connectionString": "Data Source=../database/IndentityServer4Admin.db",
+              "connectionString": "server=localhost;database=FregataIds4Admin;user=root;password=123456",
               "tableName": "Log",
               "columnOptionsSection": {
                 "addStandardColumns": [ "LogEvent" ],

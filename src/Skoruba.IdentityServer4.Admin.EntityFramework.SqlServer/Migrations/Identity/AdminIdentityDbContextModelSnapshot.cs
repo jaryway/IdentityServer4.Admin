@@ -19,6 +19,21 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.SqlServer.Migrations.Ide
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CorporationUserIdentity", b =>
+                {
+                    b.Property<long>("CorporationsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CorporationsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("CorporationUserIdentity");
+                });
+
             modelBuilder.Entity("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.Corporation", b =>
                 {
                     b.Property<long>("Id")
@@ -92,9 +107,14 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.SqlServer.Migrations.Ide
                     b.Property<string>("Py")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserIdentityId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CorporationId");
+
+                    b.HasIndex("UserIdentityId");
 
                     b.ToTable("org_Parties");
                 });
@@ -334,11 +354,30 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.SqlServer.Migrations.Ide
                     b.ToTable("org_UserParties");
                 });
 
+            modelBuilder.Entity("CorporationUserIdentity", b =>
+                {
+                    b.HasOne("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.Corporation", null)
+                        .WithMany()
+                        .HasForeignKey("CorporationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.UserIdentity", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.Party", b =>
                 {
                     b.HasOne("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.Corporation", "Corporation")
                         .WithMany("Parties")
                         .HasForeignKey("CorporationId");
+
+                    b.HasOne("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.UserIdentity", null)
+                        .WithMany("Parties")
+                        .HasForeignKey("UserIdentityId");
 
                     b.Navigation("Corporation");
                 });
@@ -433,6 +472,11 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.SqlServer.Migrations.Ide
                 });
 
             modelBuilder.Entity("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.Corporation", b =>
+                {
+                    b.Navigation("Parties");
+                });
+
+            modelBuilder.Entity("Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity.UserIdentity", b =>
                 {
                     b.Navigation("Parties");
                 });

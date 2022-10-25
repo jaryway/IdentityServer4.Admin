@@ -13,10 +13,11 @@ using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
 {
-	public static class DbMigrationHelpers
+    public static class DbMigrationHelpers
     {
         /// <summary>
         /// Generate migrations before running this method, you can use these steps bellow:
@@ -31,7 +32,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
             IHost host, bool applyDbMigrationWithDataSeedFromProgramArguments, SeedConfiguration seedConfiguration,
             DatabaseMigrationsConfiguration databaseMigrationsConfiguration)
             where TIdentityServerDbContext : DbContext, IAdminConfigurationDbContext
-            where TIdentityDbContext : DbContext
+            where TIdentityDbContext : DbContext, IOrganizationDbContext
             where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
             where TLogDbContext : DbContext, IAdminLogDbContext
             where TAuditLogDbContext : DbContext, IAuditLoggingDbContext<AuditLog>
@@ -53,10 +54,10 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
                 if ((seedConfiguration != null && seedConfiguration.ApplySeed)
                     || (applyDbMigrationWithDataSeedFromProgramArguments))
                 {
-                    var seedComplete = await EnsureSeedDataAsync<TIdentityServerDbContext, TUser, TRole>(services);
+                    var seedComplete = await EnsureSeedDataAsync<TIdentityServerDbContext, TIdentityDbContext, TUser, TRole>(services);
                     return migrationComplete && seedComplete;
                 }
-                
+
             }
             return migrationComplete;
         }
@@ -112,14 +113,16 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
             return pendingMigrationCount == 0;
         }
 
-        public static async Task<bool> EnsureSeedDataAsync<TIdentityServerDbContext, TUser, TRole>(IServiceProvider serviceProvider)
+        public static async Task<bool> EnsureSeedDataAsync<TIdentityServerDbContext, TOrganizationDbContext, TUser, TRole>(IServiceProvider serviceProvider)
         where TIdentityServerDbContext : DbContext, IAdminConfigurationDbContext
+        where TOrganizationDbContext : DbContext, IOrganizationDbContext
         where TUser : IdentityUser, new()
         where TRole : IdentityRole, new()
         {
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<TIdentityServerDbContext>();
+                var organizationContext = scope.ServiceProvider.GetRequiredService<TOrganizationDbContext>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<TUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<TRole>>();
                 var idsDataConfiguration = scope.ServiceProvider.GetRequiredService<IdentityServerData>();
@@ -127,6 +130,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
 
                 await EnsureSeedIdentityServerData(context, idsDataConfiguration);
                 await EnsureSeedIdentityData(userManager, roleManager, idDataConfiguration);
+                await EnsureSeedOrganizationData(organizationContext, userManager, idDataConfiguration);
                 return true;
             }
         }
@@ -199,6 +203,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
                     }
                 }
             }
+
         }
 
         /// <summary>
@@ -268,6 +273,42 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
                     .ToList();
 
                 await context.Clients.AddAsync(client.ToEntity());
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private static async Task EnsureSeedOrganizationData<TOrganizationDbContext, TUser>(TOrganizationDbContext context, UserManager<TUser> userManager, IdentityData identityDataConfiguration)
+            where TOrganizationDbContext : DbContext, IOrganizationDbContext
+            where TUser : IdentityUser, new()
+        {
+            foreach (var corporation in identityDataConfiguration.Corporations)
+            {
+                var exits = await context.Corporations.AnyAsync(c => c.Name == corporation.Name);
+                if (exits) continue;
+
+                var entity = new Corporation();
+                entity.FullName = corporation.Name;
+                entity.Name = corporation.Name;
+
+                var users = await userManager.Users.Where(u => corporation.Users.Any(n => u.UserName == n)).ToListAsync();
+                foreach (var user in users)
+                {
+                    entity.Users.Add(user as UserIdentity);
+                }
+
+                foreach (var party in corporation.Parties)
+                {
+
+                    var exitsParty = await context.Parties.AnyAsync(p => p.Name == party.Name);
+                    if (exitsParty) continue;
+
+                    await context.Parties.AddAsync(new Party
+                    {
+                        Name = party.Name,
+                        Corporation = entity
+                    });
+                }
             }
 
             await context.SaveChangesAsync();
