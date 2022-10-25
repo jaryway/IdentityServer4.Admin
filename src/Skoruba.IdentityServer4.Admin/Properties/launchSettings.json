@@ -8,18 +8,11 @@
     }
   },
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "commandLineArgs": "/seed",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "Skoruba.IdentityServer4.Admin": {
       "commandName": "Project",
+      "commandLineArgs": "/seed",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:55025",
+      "applicationUrl": "http://localhost:44303",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

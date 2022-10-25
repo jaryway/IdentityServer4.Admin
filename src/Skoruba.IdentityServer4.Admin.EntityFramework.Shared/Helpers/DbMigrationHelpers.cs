@@ -282,36 +282,44 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
             where TOrganizationDbContext : DbContext, IOrganizationDbContext
             where TUser : IdentityUser, new()
         {
-            foreach (var corporation in identityDataConfiguration.Corporations)
+            try
             {
-                var exits = await context.Corporations.AnyAsync(c => c.Name == corporation.Name);
-                if (exits) continue;
-
-                var entity = new Corporation();
-                entity.FullName = corporation.Name;
-                entity.Name = corporation.Name;
-
-                var users = await userManager.Users.Where(u => corporation.Users.Any(n => u.UserName == n)).ToListAsync();
-                foreach (var user in users)
+                foreach (var corporation in identityDataConfiguration.Corporations)
                 {
-                    entity.Users.Add(user as UserIdentity);
-                }
+                    var exits = await context.Corporations.AnyAsync(c => c.Name == corporation.Name);
+                    if (exits) continue;
 
-                foreach (var party in corporation.Parties)
-                {
+                    var entity = new Corporation();
+                    entity.FullName = corporation.Name;
+                    entity.Name = corporation.Name;
 
-                    var exitsParty = await context.Parties.AnyAsync(p => p.Name == party.Name);
-                    if (exitsParty) continue;
-
-                    await context.Parties.AddAsync(new Party
+                    var users = await userManager.Users.Where(u => corporation.Users.Any(n => u.UserName == n)).ToListAsync();
+                    foreach (var user in users)
                     {
-                        Name = party.Name,
-                        Corporation = entity
-                    });
-                }
-            }
+                        //entity.Users.Add(user as UserIdentity);
+                        context.UserCorporations.Add(new UserCorporation { Status = "0", Corporation = entity, User = user as UserIdentity });
+                    }
 
-            await context.SaveChangesAsync();
+                    foreach (var party in corporation.Parties)
+                    {
+                        var exitsParty = await context.Parties.AnyAsync(p => p.Name == party.Name);
+                        if (exitsParty) continue;
+
+                        await context.Parties.AddAsync(new Party
+                        {
+                            Name = party.Name,
+                            Corporation = entity
+                        });
+                    }
+                }
+
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
     }
 }

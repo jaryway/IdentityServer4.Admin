@@ -50,8 +50,8 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity
         /// <summary>
         /// 部门信息
         /// </summary>
-        public ICollection<Party> Parties { get; set; }
+        public ICollection<Party> Parties { get; set; } = new List<Party>();
 
-        public ICollection<UserIdentity> Users { get; set; }
+        public ICollection<UserIdentity> Users { get; set; } = new List<UserIdentity>();
     }
 }
