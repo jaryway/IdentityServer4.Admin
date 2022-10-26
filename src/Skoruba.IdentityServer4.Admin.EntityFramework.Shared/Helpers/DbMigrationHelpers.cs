@@ -297,7 +297,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
                     foreach (var user in users)
                     {
                         //entity.Users.Add(user as UserIdentity);
-                        context.UserCorporations.Add(new UserCorporation { Status = "0", Corporation = entity, User = user as UserIdentity });
+                        await context.UserCorporations.AddAsync(new UserCorporation { Status = "0", Corporation = entity, User = user as UserIdentity });
                     }
 
                     foreach (var party in corporation.Parties)
@@ -317,9 +317,9 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
             }
             catch (Exception ex)
             {
-                throw ex;
+                //throw ex;
             }
-            
+
         }
     }
 }
