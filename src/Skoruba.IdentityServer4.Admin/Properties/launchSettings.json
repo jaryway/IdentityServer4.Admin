@@ -12,7 +12,7 @@
       "commandName": "Project",
       "commandLineArgs": "/seed",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:44303",
+      "applicationUrl": "http://localhost:44302;https://localhost:44303",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
