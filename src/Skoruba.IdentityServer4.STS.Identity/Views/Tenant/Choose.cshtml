@@ -1,34 +1,30 @@
-﻿
-@model Skoruba.IdentityServer4.STS.Identity.ViewModels.Tenant.TenantChooseViewModel
+﻿@model Skoruba.IdentityServer4.STS.Identity.ViewModels.Tenant.ChooseViewModel
 
 <div class="login-page">
-  <div class="page-header">
-    <h1>请选择企业</h1>
-  </div>
-
-
-  <div class="row">
-
-
-    <div class="col-sm-6">
-      <div class="card mt-3">
-        <h5 class="card-header"></h5>
-        <div class="card-body">
-          <form asp-route="Login">
-            <input type="hidden" asp-for="ReturnUrl" />
-
-            <fieldset>
-              @foreach (var item in Model.Corperations)
-              {
-                <button class="btn btn-primary" name="button" value="@item">@item</button>
-              }
-            </fieldset>
-          </form>
-        </div>
-      </div>
+    <div class="page-header">
+        <h1>请选择企业</h1>
     </div>
-    }
 
 
-  </div>
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="card mt-3">
+                <h5 class="card-header"></h5>
+                <div class="card-body">
+                    <form asp-route="Login">
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <fieldset>
+                            @foreach (var item in Model.Corperations)
+                            {
+                                <button class="btn btn-primary" name="CorpId" value="@item.Id">@item.Name</button>
+                            }
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

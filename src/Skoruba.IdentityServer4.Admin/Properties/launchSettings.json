@@ -1,21 +1,21 @@
 {
+  "profiles": {
+    "Skoruba.IdentityServer4.Admin": {
+      "commandName": "Project",
+      "commandLineArgs": "/seed",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:44303"
+    }
+  },
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "https://localhost:44303",
       "sslPort": 44303
-    }
-  },
-  "profiles": {
-    "Skoruba.IdentityServer4.Admin": {
-      "commandName": "Project",
-      "commandLineArgs": "/seed",
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:44303",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
     }
   }
 }

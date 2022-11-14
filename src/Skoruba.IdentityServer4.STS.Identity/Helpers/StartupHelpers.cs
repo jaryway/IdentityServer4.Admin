@@ -341,6 +341,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
             var configurationSection = configuration.GetSection(nameof(IdentityServerOptions));
 
             var builder = services.AddIdentityServer(options => configurationSection.Bind(options))
+                .AddAuthorizeInteractionResponseGenerator<TenantChooserResponseGenerator>()
                 .AddConfigurationStore<TConfigurationDbContext>()
                 .AddOperationalStore<TPersistedGrantDbContext>()
                 .AddAspNetIdentity<TUserIdentity>();

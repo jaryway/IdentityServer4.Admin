@@ -9,15 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Skoruba.IdentityServer4.STS.Identity
+namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
-    public class CutstomAuthorizeInteractionResponseGenerator : AuthorizeInteractionResponseGenerator
+    public class TenantChooserResponseGenerator : AuthorizeInteractionResponseGenerator
     {
-        public CutstomAuthorizeInteractionResponseGenerator(ISystemClock clock,
+        public TenantChooserResponseGenerator(ISystemClock clock,
             ILogger<AuthorizeInteractionResponseGenerator> logger,
             IConsentService consent, IProfileService profile) : base(clock, logger, consent, profile)
         {
-
+            
         }
         public override async Task<InteractionResponse> ProcessInteractionAsync(ValidatedAuthorizeRequest request, ConsentResponse consent = null)
         {
@@ -25,12 +25,14 @@ namespace Skoruba.IdentityServer4.STS.Identity
             //throw new NotImplementedException();
             //
 
+            
+
             var response = await base.ProcessInteractionAsync(request, consent);
             // 用户登录后去选择要进入的租户
             // TODO:如果是已经选择了企业，第二次进入是否还需要再展示企业选择界面呢？
-            if (!response.IsLogin && !response.IsConsent)
+            if (!request.Subject.HasClaim(c => c.Type == TenantConstants.ClaimType && c.Value != ""))
             {
-                return new InteractionResponse { RedirectUrl = "/tenants/choose" };
+                return new InteractionResponse { RedirectUrl = "/tenant/choose" };
             }
 
             return response;
