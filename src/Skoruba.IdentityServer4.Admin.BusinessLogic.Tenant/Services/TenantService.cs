@@ -39,7 +39,7 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Tenant.Services
             return await _organizationRepository.AddCorporationAsync(corporationEntity);
         }
 
-        public async Task<int> UpdateCorporationAsync(Corporation corporation)
+        public async Task<int> UpdateCorporationAsync(CorporationDto corporation)
         {
             var corporationEntity = corporation.ToEntity();
             return await _organizationRepository.AddCorporationAsync(corporationEntity);
