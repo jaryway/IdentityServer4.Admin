@@ -6,8 +6,8 @@
 
 using System;
 using System.Threading.Tasks;
-using IdentityServer4.Models;
-using IdentityServer4.Stores;
+using Jaryway.IdentityServer.Models;
+using Jaryway.IdentityServer.Stores;
 using Microsoft.AspNetCore.Mvc;
 using SkorubaIdentityServer4Admin.STS.Identity.ViewModels.Account;
 

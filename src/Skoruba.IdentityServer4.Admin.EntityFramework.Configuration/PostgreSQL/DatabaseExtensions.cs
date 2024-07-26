@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using IdentityServer4.EntityFramework.Storage;
+using Jaryway.IdentityServer.EntityFramework.Storage;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

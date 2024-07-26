@@ -1,8 +1,8 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer4.Models;
-using IdentityServer4.Validation;
+using Jaryway.IdentityServer.Models;
+using Jaryway.IdentityServer.Validation;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {

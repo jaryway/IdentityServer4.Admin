@@ -1,6 +1,6 @@
 ﻿using System;
 using IdentityModel;
-using IdentityServer4.EntityFramework.Options;
+using Jaryway.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;

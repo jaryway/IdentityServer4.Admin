@@ -1,5 +1,5 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Options;
+﻿using Jaryway.IdentityServer.EntityFramework.DbContexts;
+using Jaryway.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
 
